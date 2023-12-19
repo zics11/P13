@@ -1,8 +1,29 @@
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { postUserLogin } from './SignInSlice'
 import '../../styles/Index.css'
 import logo from '../../assets/argentBankLogo.png'
-import userCircle from '../../assets/circle-user-solid.svg'
 
 function SignIn() {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const token = useSelector((state) => state.signIn.token)
+  const error = useSelector((state) => state.signIn.error)
+
+  useEffect(() => {
+    if (token) {
+      navigate('/user') // Modifiez le chemin selon votre page de tableau de bord
+    }
+  }, [token, navigate])
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    dispatch(postUserLogin({ email, password }))
+  }
+
   return (
     <body>
       <nav className="main-nav">
@@ -25,23 +46,32 @@ function SignIn() {
         <section className="sign-in-content">
           <i className="fa fa-user-circle sign-in-icon"></i>
           <h1>Sign In</h1>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="input-wrapper">
-              <label htmlFor="username">Username</label>
-              <input type="text" id="username" />
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </div>
             <div className="input-wrapper">
               <label htmlFor="password">Password</label>
-              <input type="password" id="password" />
+              <input
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </div>
-            <div className="input-remember">
-              <input type="checkbox" id="remember-me" />
-              <label htmlFor="remember-me">Remember me</label>
-            </div>
-            <button className="sign-in-button">Sign In</button>
+            <button type="submit" className="sign-in-button">
+              Sign In
+            </button>
           </form>
+          {error && <div className="error-message">Erreur: {error}</div>}
         </section>
-      </main>
+      </main>{' '}
       <footer className="footer">
         <p className="footer-text">Copyright 2020 Argent Bank</p>
       </footer>

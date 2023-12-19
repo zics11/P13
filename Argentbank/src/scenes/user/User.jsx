@@ -1,9 +1,23 @@
 import '../../styles/Index.css'
 import logo from '../../assets/argentBankLogo.png'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchUserProfile } from './UserSlice'
 
 function User() {
+  const dispatch = useDispatch()
+  const profile = useSelector((state) => state.user.body)
+
+  useEffect(() => {
+    dispatch(fetchUserProfile())
+  }, [dispatch])
+
+  useEffect(() => {
+    console.log(profile) // Afficher les données pour le débogage
+  }, [profile])
+
   return (
-    <body>
+    <div>
       <nav className="main-nav">
         <a className="main-nav-logo" href="./index.html">
           <img
@@ -16,7 +30,7 @@ function User() {
         <div>
           <a className="main-nav-item" href="./user.html">
             <i className="fa fa-user-circle"></i>
-            Tony
+            {profile ? <p>{profile.firstName}</p> : <div>Loading...</div>}
           </a>
           <a className="main-nav-item" href="./index.html">
             <i className="fa fa-sign-out"></i>
@@ -26,11 +40,11 @@ function User() {
       </nav>
       <main className="main bg-dark">
         <div className="header">
-          <h1>
-            Welcome back
-            <br />
-            Tony Jarvis!
-          </h1>
+          {profile ? (
+            <h1>Welcome back, {profile.firstName}</h1>
+          ) : (
+            <div>Loading...</div>
+          )}
           <button className="edit-button">Edit Name</button>
         </div>
         <h2 className="sr-only">Accounts</h2>
@@ -68,7 +82,7 @@ function User() {
       <footer className="footer">
         <p className="footer-text">Copyright 2020 Argent Bank</p>
       </footer>
-    </body>
+    </div>
   )
 }
 
