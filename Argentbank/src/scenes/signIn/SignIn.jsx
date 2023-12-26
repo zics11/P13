@@ -8,6 +8,7 @@ import logo from '../../assets/argentBankLogo.png'
 function SignIn() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [rememberMe, setRememberMe] = useState(false)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const token = useSelector((state) => state.signIn.token)
@@ -15,12 +16,25 @@ function SignIn() {
 
   useEffect(() => {
     if (token) {
-      navigate('/user') 
+      navigate('/user')
     }
   }, [token, navigate])
 
+  useEffect(() => {
+    const storedEmail = localStorage.getItem('rememberEmail')
+    if (storedEmail) {
+      setEmail(storedEmail)
+      setRememberMe(true)
+    }
+  }, [])
+
   const handleSubmit = (e) => {
     e.preventDefault()
+    if (rememberMe) {
+      localStorage.setItem('rememberEmail', email)
+    } else {
+      localStorage.removeItem('rememberEmail')
+    }
     dispatch(postUserLogin({ email, password }))
   }
 
@@ -64,6 +78,15 @@ function SignIn() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
+            </div>
+            <div className="input-remember">
+              <input
+                type="checkbox"
+                id="remember-me"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+              />
+              <label htmlFor="remember-me">Remember me</label>
             </div>
             <button type="submit" className="sign-in-button">
               Sign In
