@@ -15,7 +15,7 @@ function SignIn() {
 
   useEffect(() => {
     if (token) {
-      navigate('/user') // Modifiez le chemin selon votre page de tableau de bord
+      navigate('/user') 
     }
   }, [token, navigate])
 

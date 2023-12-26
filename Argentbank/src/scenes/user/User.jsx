@@ -3,14 +3,22 @@ import logo from '../../assets/argentBankLogo.png'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchUserProfile } from './UserSlice'
+import { useNavigate } from 'react-router-dom'
+import { logout } from '../signIn/SignInSlice'
 
 function User() {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const profile = useSelector((state) => state.user.body)
 
   useEffect(() => {
     dispatch(fetchUserProfile())
   }, [dispatch])
+
+  const handleLogout = () => {
+    dispatch(logout())
+    navigate('/sign-in') 
+  }
 
   useEffect(() => {
     console.log(profile) // Afficher les données pour le débogage
@@ -32,7 +40,7 @@ function User() {
             <i className="fa fa-user-circle"></i>
             {profile ? <p>{profile.firstName}</p> : <div>Loading...</div>}
           </a>
-          <a className="main-nav-item" href="./index.html">
+          <a className="main-nav-item" onClick={handleLogout}>
             <i className="fa fa-sign-out"></i>
             Sign Out
           </a>

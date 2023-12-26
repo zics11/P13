@@ -29,6 +29,7 @@ const userSlice = createSlice({
     builder
       .addCase(fetchUserProfile.fulfilled, (state, action) => {
         state.body = action.payload.body
+        localStorage.setItem('userProfile', JSON.stringify(action.payload.body)) // Stocker les données du profil dans localStorage
       })
       .addCase(fetchUserProfile.rejected, (state, action) => {
         state.error = action.error.message
