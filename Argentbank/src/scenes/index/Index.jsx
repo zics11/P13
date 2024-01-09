@@ -4,10 +4,11 @@ import logo from '../../assets/argentBankLogo.png'
 import iconChat from '../../assets/icon-chat.png'
 import iconSecurity from '../../assets/icon-security.png'
 import userCircle from '../../assets/circle-user-solid.svg'
+import { NavLink } from 'react-router-dom'
 
 function Index() {
   return (
-    <body>
+    <div className='body'>
       <nav className="main-nav">
         <a className="main-nav-logo" href="./index.html">
           <img
@@ -18,14 +19,10 @@ function Index() {
           <h1 className="sr-only">Argent Bank</h1>
         </a>
         <div>
-          <a className="main-nav-item" href="./sign-in.html">
-            <img
-              className=""
-              src={userCircle}
-              alt="User icon"
-            />
+          <NavLink to="/sign-in" className="main-nav-item">
+            <img className="" src={userCircle} alt="User icon" />
             Sign In
-          </a>
+          </NavLink>
         </div>
       </nav>
       <main>
@@ -72,7 +69,7 @@ function Index() {
       <footer className="footer">
         <p className="footer-text">Copyright 2020 Argent Bank</p>
       </footer>
-    </body>
+    </div>
   )
 }
 

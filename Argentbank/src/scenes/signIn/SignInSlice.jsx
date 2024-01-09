@@ -29,7 +29,7 @@ const signInSlice = createSlice({
     logout: (state) => {
       state.token = null
       state.user = null
-      localStorage.removeItem('authToken') // Supprimer le token du localStorage
+      localStorage.removeItem('authToken') 
       localStorage.removeItem('userProfile')
     },
   },
@@ -37,7 +37,7 @@ const signInSlice = createSlice({
     builder
       .addCase(postUserLogin.fulfilled, (state, action) => {
         state.token = action.payload.body.token
-        localStorage.setItem('authToken', action.payload.body.token) // Stocker le token dans localStorage
+        localStorage.setItem('authToken', action.payload.body.token) 
       })
       .addCase(postUserLogin.rejected, (state, action) => {
         state.error = action.error.message

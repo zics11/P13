@@ -1,9 +1,12 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { postUserLogin } from './SignInSlice'
 import '../../styles/Index.css'
 import logo from '../../assets/argentBankLogo.png'
+import { NavLink } from 'react-router-dom'
+import userCircle from '../../assets/circle-user-solid.svg'
 
 function SignIn() {
   const [email, setEmail] = useState('')
@@ -39,7 +42,7 @@ function SignIn() {
   }
 
   return (
-    <body>
+    <div className='body'>
       <nav className="main-nav">
         <a className="main-nav-logo" href="./index.html">
           <img
@@ -50,19 +53,19 @@ function SignIn() {
           <h1 className="sr-only">Argent Bank</h1>
         </a>
         <div>
-          <a className="main-nav-item" href="./sign-in.html">
-            <i className="fa fa-user-circle"></i>
+          <NavLink to="/sign-in" className="main-nav-item">
+            <img className="" src={userCircle} alt="User icon" />
             Sign In
-          </a>
+          </NavLink>
         </div>
       </nav>
       <main className="main bg-dark">
         <section className="sign-in-content">
-          <i className="fa fa-user-circle sign-in-icon"></i>
+          <img className="" src={userCircle} alt="User icon" />
           <h1>Sign In</h1>
           <form onSubmit={handleSubmit}>
             <div className="input-wrapper">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email">Username</label>
               <input
                 type="email"
                 id="email"
@@ -98,7 +101,7 @@ function SignIn() {
       <footer className="footer">
         <p className="footer-text">Copyright 2020 Argent Bank</p>
       </footer>
-    </body>
+    </div>
   )
 }
 
