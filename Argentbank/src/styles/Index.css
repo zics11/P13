@@ -322,3 +322,15 @@ html {
   width: 100px;
 
 }
+
+.error{
+  margin-top: 200px;
+  font-size: 30px;
+  color: #12002b;
+}
+
+.error a{
+  color: #00bc77;
+}
+
+

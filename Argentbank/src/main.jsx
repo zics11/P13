@@ -7,6 +7,8 @@ import store from './store'; // Assurez-vous que le chemin d'accès est correct
 import Index from './scenes/index/Index';
 import SignIn from './scenes/signin/SignIn';
 import User from './scenes/user/User';
+import Error from './scenes/error/Error';
+
 import './index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -19,7 +21,7 @@ root.render(
           <Route path="/sign-in" element={<SignIn />}></Route>
           <Route path="/user" element={<User />}></Route>
           {/* Vous pouvez ajouter une route par défaut pour gérer les chemins non reconnus */}
-          <Route path="*" element={<Index />} />
+          <Route path="*" element={<Error />}></Route>
         </Routes>
       </Router>
     </Provider>
