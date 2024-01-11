@@ -12,6 +12,7 @@ import signOutIcon from '../../assets/right-from-bracket-solid.svg'
 function User() {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const isLoggedIn = useSelector((state) => !!state.signIn.token) // Remplacez 'auth.token' par le chemin approprié dans votre store
   const profile = useSelector((state) => state.user.body)
   const [isEditing, setIsEditing] = useState(false)
   const [editedFirstName, setEditedFirstName] = useState('')
@@ -20,6 +21,12 @@ function User() {
   useEffect(() => {
     dispatch(fetchUserProfile())
   }, [dispatch])
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate('/Error') // Redirige vers la page d'erreur
+    }
+  }, [isLoggedIn, navigate])
 
   const handleEdit = () => {
     setIsEditing(true)
@@ -47,7 +54,7 @@ function User() {
   }
 
   return (
-    <div className='body'>
+    <div className="body">
       <nav className="main-nav">
         <a className="main-nav-logo" href="./index.html">
           <img
@@ -73,7 +80,7 @@ function User() {
           {isEditing ? (
             <div className="edit">
               <h1>Welcome back</h1>
-              <div className='edit-input'>
+              <div className="edit-input">
                 <input
                   type="text"
                   value={editedFirstName}
@@ -85,10 +92,13 @@ function User() {
                   onChange={(e) => setEditedLastName(e.target.value)}
                 />
               </div>
-              <div className='edit-input'>
-
-              <button onClick={handleSubmitEdit} className='edit-button'>Valider</button>
-              <button onClick={handleCancel} className='edit-button'>Annuler</button>
+              <div className="edit-input">
+                <button onClick={handleSubmitEdit} className="edit-button">
+                  Valider
+                </button>
+                <button onClick={handleCancel} className="edit-button">
+                  Annuler
+                </button>
               </div>
             </div>
           ) : (

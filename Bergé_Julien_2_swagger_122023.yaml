@@ -1,0 +1,156 @@
+swagger: '2.0'
+info:
+  version: '1.0.0'
+  title: 'Bank Transactions API'
+  description: API pour gérer les notes et catégories des transactions bancaires.
+host: 'localhost:3001'
+basePath: '/api/v1'
+schemes:
+  - http
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
+    description: JWT Authorization header using the Bearer scheme. 
+security:
+  - Bearer: []
+paths:
+  /transactions/thismonth/{accountId}:
+    get:
+      summary: Obtenir les transactions pour un compte spécifique
+      description: Retourne une liste de toutes les transactions pour le mois en cours, groupées par compte.
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          type: string
+          description: ID unique du compte
+      responses:
+        '200':
+          description: Liste des transactions pour le compte spécifié
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Transaction'
+        '404':
+          description: Compte non trouvé
+          
+  /transaction/{transactionId}:
+    get:
+      summary: Détails d'une transaction spécifique
+      description: Retourne les détails d'une transaction spécifique.
+      parameters:
+        - name: transactionId
+          in: path
+          required: true
+          type: string
+          description: ID unique de la transaction
+      responses:
+        '200':
+          description: Détails de la transaction demandée
+          schema:
+            $ref: '#/definitions/Transaction'
+        '404':
+          description: Transaction non trouvée
+
+
+  /transaction/{transactionId}/note:
+    patch:
+      summary: Modifier ou ajouter une note à une transaction
+      description: Permet de modifier ou d'ajouter une note à une transaction spécifique.
+      parameters:
+        - name: transactionId
+          in: path
+          required: true
+          type: string
+          description: ID unique de la transaction
+        - in: body
+          name: note
+          required: true
+          schema:
+            type: object
+            properties:
+              note:
+                type: string
+      responses:
+        '200':
+          description: Note de la transaction mise à jour avec succès
+        '404':
+          description: Transaction non trouvée
+
+    delete:
+      summary: Supprimer la note d'une transaction
+      description: Permet de supprimer la note d'une transaction spécifique.
+      parameters:
+        - name: transactionId
+          in: path
+          required: true
+          type: string
+          description: ID unique de la transaction
+      responses:
+        '200':
+          description: Note de la transaction supprimée avec succès
+        '404':
+          description: Transaction non trouvée
+
+  /transaction/{transactionId}/category:
+    patch:
+      summary: Modifier ou ajouter une catégorie à une transaction
+      description: Permet de modifier ou d'ajouter une catégorie à une transaction spécifique.
+      parameters:
+        - name: transactionId
+          in: path
+          required: true
+          type: string
+          description: ID unique de la transaction
+        - in: body
+          name: category
+          required: true
+          schema:
+            type: object
+            properties:
+              category:
+                type: string
+      responses:
+        '200':
+          description: Catégorie de la transaction mise à jour avec succès
+        '404':
+          description: Transaction non trouvée
+
+    delete:
+      summary: Supprimer la catégorie d'une transaction
+      description: Permet de supprimer la catégorie d'une transaction spécifique.
+      parameters:
+        - name: transactionId
+          in: path
+          required: true
+          type: string
+          description: ID unique de la transaction
+      responses:
+        '200':
+          description: Catégorie de la transaction supprimée avec succès
+        '404':
+          description: Transaction non trouvée
+
+definitions:
+  Transaction:
+    type: object
+    properties:
+      id:
+        type: string
+      accountId:
+        type: string
+      amount:
+        type: number
+      type:
+        type: string
+      date:
+        type: string
+        format: date
+      description:
+        type: string
+      category:
+        type: string
+      note:
+        type: string
