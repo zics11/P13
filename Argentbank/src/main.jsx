@@ -1,17 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import store from './store'; // Assurez-vous que le chemin d'accès est correct
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import store from './store' // Assurez-vous que le chemin d'accès est correct
 
-import Index from './scenes/index/Index';
-import SignIn from './scenes/signin/SignIn';
-import User from './scenes/user/User';
-import Error from './scenes/error/Error';
+import Index from './scenes/index/Index'
+import SignIn from './scenes/signIn/SignIn'
+import User from './scenes/user/User'
+import Error from './scenes/error/Error'
 
-import './index.css';
+import './index.css'
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
     <Provider store={store}>
@@ -26,4 +26,4 @@ root.render(
       </Router>
     </Provider>
   </React.StrictMode>
-);
+)
