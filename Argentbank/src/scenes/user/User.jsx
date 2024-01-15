@@ -8,6 +8,7 @@ import '../../styles/Index.css'
 import logo from '../../assets/argentBankLogo.png'
 import userCircle from '../../assets/circle-user-solid.svg'
 import signOutIcon from '../../assets/right-from-bracket-solid.svg'
+import { NavLink } from 'react-router-dom'
 
 function User() {
   const dispatch = useDispatch()
@@ -56,14 +57,14 @@ function User() {
   return (
     <div className="body">
       <nav className="main-nav">
-        <a className="main-nav-logo" href="./index.html">
+        <NavLink to="/index" className="main-nav-logo">
           <img
             className="main-nav-logo-image"
             src={logo}
             alt="Argent Bank Logo"
           />
           <h1 className="sr-only">Argent Bank</h1>
-        </a>
+        </NavLink>
         <div className="main-nav-user">
           <a className="main-nav-item" href="">
             <img className="" src={userCircle} alt="User icon" />
